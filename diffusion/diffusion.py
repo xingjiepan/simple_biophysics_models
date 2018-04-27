@@ -32,8 +32,30 @@ def weight_to_radius(weight):
     return (volume * 3 / 4 / np.pi) ** (1 / 3)
 
 
+water_viscosity = 0.001 
+
+def friction_coefficient_for_sphere(radius, viscosity=water_viscosity):
+    '''Get the friction coefficient for a sphere.
+    The radius is in meter. The viscosity is kg / (s * m) 
+
+    friction = 6 * pi * viscosity * radius
+    '''
+    return 6 * np.pi * viscosity * radius 
+
+def diffusion_coefficient(friction_coefficient, temperature=300):
+    '''Get the diffusion_coefficient in m^2 / s
+
+    diffusion_coefficient = k * temperature / friction_coefficient
+    '''
+    k = 1.38 * (10 ** (-23))
+
+    return k * temperature / friction_coefficient 
+
 if __name__ == '__main__':
 
     for d in experimental_diffusion_constants:
-        print('molecule:{0}, radius = {1:.2E}m'.format(
-            d['molecule'], weight_to_radius(d['weight'])))
+        r = weight_to_radius(d['weight'])
+        friction_coefficient = friction_coefficient_for_sphere(r)
+        D = diffusion_coefficient(friction_coefficient)
+        print('molecule:{0}, radius = {1:.2E} m, D_measure = {2:.2E} m^2/s, D_calc = {3:.2E} m^2/s'.format(
+            d['molecule'], r, d['D'], D))
