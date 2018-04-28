@@ -5,15 +5,16 @@ import numpy as np
 
 # Temperatures are in Kelvin, weights are in Dalton, Ds are in m^2 / s
 experimental_diffusion_constants = [
-        {'molecule':'H2', 'medium':'water', 'temperature':298, 'weight':2, 'D':4.5 * (10 ** (-9))},
-        {'molecule':'water', 'medium':'water', 'temperature':298, 'weight':18, 'D':2.13 * (10 ** (-9))},
-        {'molecule':'O2', 'medium':'water', 'temperature':298, 'weight':32, 'D':2.1 * (10 ** (-9))},
-        {'molecule':'urea', 'medium':'water', 'temperature':298, 'weight':60, 'D':1.38 * (10 ** (-9))},
-        {'molecule':'benzene', 'medium':'water', 'temperature':298, 'weight':78, 'D':1.02 * (10 ** (-9))},
-        {'molecule':'sucrose', 'medium':'water', 'temperature':298, 'weight':342, 'D':5.23 * (10 ** (-10))},
-        {'molecule':'GFP', 'medium':'water', 'temperature':298, 'weight':31000, 'D':8.7 * (10 ** (-11))},
-        {'molecule':'DNA', 'medium':'water', 'temperature':293, 'weight':6000000, 'D':1.3 * (10 ** (-12))},
-        {'molecule':'tobacco_mosaic_virus', 'medium':'water', 'temperature':293, 'weight':50000000, 'D':3 * (10 ** (-12))},
+        {'molecule':'H2', 'medium':'water', 'temperature':298, 'weight':2, 'D':4.5E-9},
+        {'molecule':'water', 'medium':'water', 'temperature':298, 'weight':18, 'D':2.13E-9},
+        {'molecule':'O2', 'medium':'water', 'temperature':298, 'weight':32, 'D':2.1E-9},
+        {'molecule':'urea', 'medium':'water', 'temperature':298, 'weight':60, 'D':1.38E-9},
+        {'molecule':'benzene', 'medium':'water', 'temperature':298, 'weight':78, 'D':1.02E-9},
+        {'molecule':'sucrose', 'medium':'water', 'temperature':298, 'weight':342, 'D':5.23E-10},
+        {'molecule':'GFP', 'medium':'water', 'temperature':298, 'weight':3.1E4, 'D':8.7E-11},
+        {'molecule':'DNA', 'medium':'water', 'temperature':293, 'weight':6E6, 'D':1.3E-12}, # Length ~10 kbp
+        {'molecule':'tobacco_mosaic_virus', 'medium':'water', 'temperature':293, 'weight':5E7, 'D':3E-12},
+        {'molecule':'e-coli', 'weight':3E11, 'D': 2E-13, 'D_active':4E-10},
         ]
 
 

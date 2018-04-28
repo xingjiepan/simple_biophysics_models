@@ -10,6 +10,8 @@ Example:
 import sys
 
 
+N_A = 6.02E23 # Avogadro constant
+
 # The dictionary of units. Each unit is defined as 
 # a tuple (value, kg, m, s), where value is the magnitude
 # of the unit in the standard unit and kg, m and s are 
@@ -20,7 +22,9 @@ units = {
         's' : (1, 0, 0, 1),
 
         'g' : (0.001, 1, 0, 0),
-        'N' : (1, 1, 1, -2),
+        'Da' : (0.001 / N_A, 1, 0, 0), #Dalton
+
+        'N' : (1, 1, 1, -2), #Newton
         }
 
 def to_standard_units(value, positive_units, negative_units):
@@ -135,4 +139,4 @@ if __name__ == '__main__':
     output_positive_units, output_negative_units = split_unit_string_to_positive_and_negative_lists(output_unit)
     output_value = to_custom_unit(value_and_units_std, output_positive_units, output_negative_units)
     
-    print('{0} {1} = {2} {3}'.format(input_value, input_unit, output_value, output_unit))
+    print('{0:.3E} {1} = {2:.3E} {3}'.format(input_value, input_unit, output_value, output_unit))
