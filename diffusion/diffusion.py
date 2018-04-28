@@ -52,11 +52,23 @@ def diffusion_coefficient(friction_coefficient, temperature=300):
 
     return k * temperature / friction_coefficient 
 
+def thermal_velocity(weight_Da, temperature=300):
+    '''Calculate the thermal velocity given the weight
+    of a particle. The weight should be in Dalton.
+    '''
+    k = 1.38 * (10 ** (-23))
+    Na = 6.02 * (10 ** 23)
+
+    weight_kg = weight_Da / Na / 1000
+
+    return np.sqrt(2 * k * temperature / weight_kg) 
+
+
 if __name__ == '__main__':
 
     for d in experimental_diffusion_constants:
         r = weight_to_radius(d['weight'])
         friction_coefficient = friction_coefficient_for_sphere(r)
         D = diffusion_coefficient(friction_coefficient)
-        print('molecule:{0}, radius = {1:.2E} m, D_measure = {2:.2E} m^2/s, D_calc = {3:.2E} m^2/s'.format(
-            d['molecule'], r, d['D'], D))
+        print('molecule:{0}, radius = {1:.2E} m, D_measure = {2:.2E} m^2/s, D_calc = {3:.2E} m^2/s, v = {4:.2E} m/s'.format(
+            d['molecule'], r, d['D'], D, thermal_velocity(d['weight'])))
