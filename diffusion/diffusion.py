@@ -63,6 +63,25 @@ def thermal_velocity(weight_Da, temperature=300):
 
     return np.sqrt(2 * k * temperature / weight_kg) 
 
+def diffusion_limited_reaction_rate(D1, r1, D2, r2):
+    '''Calculate the diffusion limited reaction rate
+    k = 4 * pi * (D1 + D2) * (r1 + r2)
+    '''
+    return 4 * np.pi * (D1 + D2) * (r1 + r2)
+
+def diffusion_limited_reaction_rate_for_same_spheres(viscosity=water_viscosity, temperature=300):
+    '''Calculate the diffusion limited reaction rate for
+    same spheres.
+
+    k = 16 * pi * D * r
+      = 16 * pi * kB * temperature / friction_coefficient * r
+      = 16 * pi * kB * temperature / (6 * pi * viscosity * r) * r
+      = 8 / 3 * kB * temperature / viscosity
+
+    The unit of k is m^3 / s
+    '''
+    kB = 1.38 * (10 ** (-23))
+    return 8 / 3 * kB * temperature / viscosity
 
 if __name__ == '__main__':
 
@@ -72,3 +91,6 @@ if __name__ == '__main__':
         D = diffusion_coefficient(friction_coefficient)
         print('molecule:{0}, radius = {1:.2E} m, D_measure = {2:.2E} m^2/s, D_calc = {3:.2E} m^2/s, v = {4:.2E} m/s'.format(
             d['molecule'], r, d['D'], D, thermal_velocity(d['weight'])))
+
+    print('\nThe diffusion limited reaction rate for same spheres in water is {0:.3E} m^3/s'.format(
+    diffusion_limited_reaction_rate_for_same_spheres()))
