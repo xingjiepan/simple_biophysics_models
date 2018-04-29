@@ -7,6 +7,7 @@ particles = [
         {'molecule':'GFP', 'weight':3.1E4, 'density':1300},
         {'molecule':'DNA', 'weight':6E6, 'density':2000}, # Length ~10 kbp
         {'molecule':'tobacco_mosaic_virus', 'weight':5E7, 'density':1150},
+        {'molecule':'e-coli_genome', 'weight':6E8, 'density':2000}, # Length ~10 kbp
         {'molecule':'e-coli', 'weight':3E11, 'density':1090},
         ]
 
