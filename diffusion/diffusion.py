@@ -83,6 +83,15 @@ def diffusion_limited_reaction_rate_for_same_spheres(viscosity=water_viscosity, 
     kB = 1.38 * (10 ** (-23))
     return 8 / 3 * kB * temperature / viscosity
 
+def diffusion_limited_off_rate_for_same_spheres(Kd):
+    '''Calculate the diffusion limited off rate for same spheres
+    given the Kd. The unit of Kd is m^(-3).
+    Return k_off in s^(-1)
+    '''
+    k_on = diffusion_limited_reaction_rate_for_same_spheres()
+    return k_on * Kd
+
+
 if __name__ == '__main__':
 
     for d in experimental_diffusion_constants:
@@ -94,3 +103,12 @@ if __name__ == '__main__':
 
     print('\nThe diffusion limited reaction rate for same spheres in water is {0:.3E} m^3/s'.format(
     diffusion_limited_reaction_rate_for_same_spheres()))
+
+
+    print('\nThe diffusion limited off rate for different Kd are:')
+    for Kd in [1, 1E-3, 1E-6, 1E-9, 1E-12]:
+        Kd_std_unit = Kd * 6.02E23 / 0.001
+        k_off = diffusion_limited_off_rate_for_same_spheres(Kd_std_unit)
+        t = 1 / k_off
+        print('Kd = {0} L/mol, k_off = {1}, t = {2}'.format(Kd, k_off, t))
+
