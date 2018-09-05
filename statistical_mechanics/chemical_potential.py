@@ -30,6 +30,10 @@ def particle_state_thermal_length(mass, temperature=300):
     '''
     return h / np.sqrt(2 * np.pi * mass * k_B * temperature) 
 
+def moment_of_inertia_of_ball(mass, radius):
+    '''Return the moment of inertia of a ball.'''
+    return 2 / 5 * mass * radius * radius 
+
 def rotation_partion_function(I1, I2, I3, rotation_symmetry=1, temperature=300):
     '''Rotation partition function of a single partical.
     I1, I2 and I3 are the principle moments of inertia.
@@ -72,3 +76,18 @@ if __name__ == '__main__':
         print('    concentration = {0:.2E} mol/L, volume = {1:.2E} m^3, translational_free_energy = {2:.2f} k_B*T'.format(
             concentrations[i], volumes[i], translational_free_energy(mass, volumes[i]) / (k_B * 300))) 
 
+    # Print the rotational free energy
+    
+    print('\nRotational free energy at 300K:')
+    
+    mass = 0.018 / Na #kg
+    radius = 1.93E-10 #m
+    I = moment_of_inertia_of_ball(mass, radius)
+    print('    water: {0:.2f} k_B*T'.format(-np.log(rotation_partion_function(I, I, I))))
+
+    mass = 31 / Na #kg
+    radius = 2.31E-09 #m
+    I = moment_of_inertia_of_ball(mass, radius)
+    print('    GFP: {0:.2f} k_B*T'.format(-np.log(rotation_partion_function(I, I, I))))
+
+    
