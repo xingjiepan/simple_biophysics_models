@@ -14,9 +14,9 @@ basic_bio_numbers = {
         # Proteostasis
 
         'yeast_num_mrna' : 15000, # N / cell
-        'yeast_num_ribosomes' : 500000, # N / cell
+        'yeast_num_ribosomes' : 5e5, # N / cell
         'translation_rate' : 5, # aa / sec
-        'protein_concentration' : 3000000, # N / um^3
+        'protein_concentration' : 3e6, # N / um^3
         'yeast_cell_volume': 36, # um^3   
         'yeast_cell_cycle_time': 200, # min
 
@@ -28,7 +28,7 @@ basic_bio_numbers = {
        
         'atp_cost_per_peptide_bond_formation' : 4,
         'human_fibroblast_atp_production_rate': 1e9, # N / cell / sec
-         
+        'atp_per_glucose' : 38,     
 
         }
 
@@ -41,7 +41,7 @@ def proteostasis():
     protein_doubling_time = n_proteins_in_yeast / max_n_proteins_produced_per_sec 
 
 
-    print('N proteins in yeast = {0}'.format(n_proteins_in_yeast))
+    print('N proteins in yeast = {0:.2E}'.format(n_proteins_in_yeast))
     print('Yeast max n proteins produced per sec = {0}'.format(max_n_proteins_produced_per_sec))
     print('Yeast protein doubling time = {0} min'.format(protein_doubling_time / 60))
 
@@ -51,8 +51,8 @@ def proteostasis():
     hela_protein_synthesis_rate = n_proteins_in_hela * np.log(2) * ( 1 / basic_bio_numbers['hela_average_protein_cell_cycle']
             + 1 / basic_bio_numbers['hela_average_protein_turnover_rate']) 
 
-    print('N proteins in a hela cell = {0}'.format(n_proteins_in_hela))
-    print('Hela cell protein synthesis rate = {0} sec^-1'.format(hela_protein_synthesis_rate / 3600))
+    print('N proteins in a hela cell = {0:.2E}'.format(n_proteins_in_hela))
+    print('Hela cell protein synthesis rate = {0:.2E} sec^-1'.format(hela_protein_synthesis_rate / 3600))
 
     print('\n\n\n')
 
@@ -66,6 +66,18 @@ def energy_budget():
     atp_cost_rate_for_protein_synthesis = hela_protein_synthesis_rate * basic_bio_numbers['atp_cost_per_peptide_bond_formation'] * 500
    
     print('Hela cell atp cost rate for protein synthesis = {0:.2E} sec^-1'.format(atp_cost_rate_for_protein_synthesis / 3600))
+
+    glucose_per_sec = basic_bio_numbers['human_fibroblast_atp_production_rate'] / basic_bio_numbers['atp_per_glucose']
+    glucose_weight_per_sec = glucose_per_sec * 180.156 / 6.022E23 / 1000 
+    fibroblast_volume = 2000 # um^3
+    fibroblast_weight = fibroblast_volume * 10E-15
+    n_human_cells = 50 / fibroblast_weight
+    glucose_weight_per_sec_human = n_human_cells * glucose_weight_per_sec
+
+    print('A human fibroblast consumes {0:.2E} ATPs per second, which is {1:.2E} kg'.format(glucose_per_sec, glucose_weight_per_sec))
+    print('The weight of a fibroblast is {0:.2E} kg'.format(fibroblast_weight))
+    print('A 50kg human has about {0:.2E} cells, which consumes {1:.2E} kg glucose per second, i.e. {2:.2E}kg glucose per day'.format(n_human_cells, glucose_weight_per_sec_human, glucose_weight_per_sec_human * 3600 * 24))
+    print('A human needs {0:.2E} kcal/day. This is a bit over extimated compared with the correct value {1:.2E} kcal/day'.format(glucose_weight_per_sec_human * 3600 * 24 * 4000, 2000))
 
     print('\n\n\n')
 
