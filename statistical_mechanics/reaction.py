@@ -9,5 +9,5 @@ reaction_rates = [
         
         {'reaction':'DNA_hydrolysis', 'buffer':'water', 't_half':'30,000,000 years'},
         
-        {'reaction':'peptide_bond_hydrolysis', 'buffer':'water', 't_half':'7 years'},
+        {'reaction':'peptide_bond_hydrolysis', 'buffer':'water', 't_half':'7 years'}, # Other sources said 350 to 600 years
         ]

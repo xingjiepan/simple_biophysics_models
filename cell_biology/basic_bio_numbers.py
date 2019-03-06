@@ -30,6 +30,16 @@ basic_bio_numbers = {
         'human_fibroblast_atp_production_rate': 1e9, # N / cell / sec
         'atp_per_glucose' : 38,     
 
+
+        # Thermodynamics
+
+        'human_erythrocyte_atp_concentration' : 5, # mM
+        'human_erythrocyte_adp_concentration' : 1, # mM
+        'human_erythrocyte_phosphate_concentration' : 15, # mM
+        'standard_atp_hydrolysis_free_energy' : -7.3, # kcal/mol
+
+        'peptide_bond_hydrolysis_free_energy' : -3, # kcal/mol
+    
         }
 
 
@@ -81,8 +91,22 @@ def energy_budget():
 
     print('\n\n\n')
 
+def thermodynamics():
+    print('Thermodynamics')
+
+    atp_hydrolysis_free_energy_in_cell = basic_bio_numbers['standard_atp_hydrolysis_free_energy'] + 0.59 * np.log(
+            basic_bio_numbers['human_erythrocyte_phosphate_concentration'] * basic_bio_numbers['human_erythrocyte_adp_concentration'] 
+            / basic_bio_numbers['human_erythrocyte_atp_concentration'] * 1E-3)   
+
+    print('ATP hydrolysis free energy in cells is {0:.2E} kcal/mol'.format(atp_hydrolysis_free_energy_in_cell))
+
+    print('\n\n\n')
+
+
 if __name__ == '__main__':
 
     proteostasis()
 
     energy_budget()
+
+    thermodynamics()
