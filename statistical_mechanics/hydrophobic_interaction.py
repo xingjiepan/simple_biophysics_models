@@ -40,6 +40,7 @@ def water_surface_energy(surface_area):
 
 
 if __name__ == '__main__':
+    print('Surface energy for 1 Angstrom is {0} kcal/mol'.format(surface_tension_coefficients['water'] * 1E-20 * 6.02E23 / 4184))
 
     print('Surface energies for AA side chains:')
 
