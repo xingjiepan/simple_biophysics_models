@@ -33,7 +33,7 @@ def weight_to_radius(weight):
     return (volume * 3 / 4 / np.pi) ** (1 / 3)
 
 
-water_viscosity = 0.001 
+water_viscosity = 0.00089 
 
 def friction_coefficient_for_sphere(radius, viscosity=water_viscosity):
     '''Get the friction coefficient for a sphere.
